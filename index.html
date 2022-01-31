@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <title>XHTML 5.2 blank page</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+
+    </style>
+
+</head>
+
+<body>
+
+  
+    <div onclick='alert(this.innerHTML)'>
+                        <!-- this equivale a event.currentTarget -->
+        <p>
+            hola
+        </p>
+    </div>
+    
+    <div onclick='ClickHandler()'>
+        <p onclick='ClickHandler2()'>hola</p>
+    </div>
+
+    
+    <script>
+
+        //elem.addEventListener('click', ClickHandler3, {capture:true})
+
+        function ClickHandler() {
+            alert('DIV - target: '+event.target.tagName + 'currentTarget: '+ event.currentTarget.tagName + '\n' + event.eventPhase);
+            //alert('tipo: ' + e.type);
+        }
+        function ClickHandler2() {
+            alert('p - target: '+event.target.tagName + 'currentTarget: '+ event.currentTarget.tagName + '\n' + event.eventPhase);
+            event.StopPropagation();
+            //alert('segundo22222');
+        }
+        function ClickHandler3() {
+            alert('p - target: '+event.target.tagName + 'currentTarget: '+ event.currentTarget.tagName + '\n' + event.eventPhase);
+            
+        }
+
+       
+    </script>
+
+
+</body>
+
+</html>
