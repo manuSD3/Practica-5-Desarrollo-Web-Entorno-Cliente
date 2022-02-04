@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <title>Generador de tabla</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+        
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Crear tabla</h1>
+    <button onclick='generarTabla()'>CREAR</button>
+    <p>Fila:</p>
+    <input type="number" />
+    <p>Columna:</p>
+    <input type="number" />
+
+    <h1>Vaciar una celda:</h1>
+    <button>VACIAR</button>
+    <p>Fila:</p>
+    <input type="number" />
+    <p>Columna:</p>
+    <input type="number" />
+
+    <script>
+
+        $(document).ready(function() {
+
+            //crear la tabla
+            let tabla = document.createElement('table');
+            document.body.appendChild(tabla);
+
+
+
+
+            //crear el elemento
+            let parrafo = document.createElement('p');
+            //crear un nodo de texto
+            let texto = document.createTextNode('esto es un parrafo');
+            //adjuntar el nodo de texto al elemento
+            parrafo.appendChild(texto);
+            //este paso es necesario, porque los elementos se han creado "sueltos", están en memoria. Ahora hay que adjuntarlos al body.
+            document.body.appendChild(parrafo);
+
+
+
+        });
+
+
+    </script>
+
+
+</body>
+
+</html>
