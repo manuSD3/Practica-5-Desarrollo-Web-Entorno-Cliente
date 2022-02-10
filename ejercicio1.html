@@ -44,6 +44,7 @@
             border: none;
             background: transparent;
             cursor: pointer;
+            float:right;
         }
     </style>
 
@@ -53,22 +54,25 @@
 
     <div>
         <div class="pane">
+            <button class="remove-button">[x]</button>
+            <!-- <button class="remove-button" onclick="$('.pane').eq(0).hide()">[x]</button> -->
             <h3>Horse</h3>
-            <button class="remove-button" onclick="$('.pane').eq(0).hide()">[x]</button>
             <p>The horse is one of two extant subspecies of Equus ferus. It is an odd-toed ungulate mammal belonging to
                 the taxonomic family Equidae. The horse has evolved over the past 45 to 55 million years from a small
                 multi-toed creature, Eohippus, into the large, single-toed animal of today.</p>
         </div>
         <div class="pane">
-            <h3>Donkey</h3>
             <button class="remove-button">[x]</button>
+            <!-- <button class="remove-button" onclick="$('.pane').eq(1).hide()">[x]</button> -->
+            <h3>Donkey</h3>
             <p>The donkey or ass (Equus africanus asinus) is a domesticated member of the horse family, Equidae. The
                 wild ancestor of the donkey is the African wild ass, E. africanus. The donkey has been used as a working
                 animal for at least 5000 years.</p>
         </div>
         <div class="pane">
-            <h3>Cat</h3>
             <button class="remove-button">[x]</button>
+            <!-- <button class="remove-button" onclick="$('.pane').eq(2).hide()">[x]</button> -->
+            <h3>Cat</h3>
             <p>The domestic cat (Latin: Felis catus) is a small, typically furry, carnivorous mammal. They are often
                 called house cats when kept as indoor pets or simply cats when there is no need to distinguish them from
                 other felids and felines. Cats are often valued by humans for companionship and for their ability to
@@ -86,7 +90,7 @@
 
    
 
-        //event.target.remove()
+        event.target.remove();
 
         function ClickHandler() {
             alert('DIV - target: ' + event.target.tagName + 'currentTarget: ' + event.currentTarget.tagName + '\n' + event.eventPhase);
@@ -101,6 +105,26 @@
             alert('p - target: ' + event.target.tagName + 'currentTarget: ' + event.currentTarget.tagName + '\n' + event.eventPhase);
 
         }
+
+        //seleccionar todos los panes
+        let panes = document.querySelectorAll('.pane');
+
+        for (let i = 0; i < panes.length; i++) {
+            const pane = panes[i];
+            // button debe convertirse en el primer child de pane
+            pane.firstChild.onclick = () => pane.remove();
+
+            
+        }
+
+
+//      https://bobbyhadz.com/blog/javascript-remove-element-from-dom-on-click
+        const box = document.getElementById('box');
+
+        box.addEventListener('click', function handleClick(event) {
+        event.target.remove();
+        });
+
 
 
     </script>
