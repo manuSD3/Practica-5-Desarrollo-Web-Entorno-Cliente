@@ -12,9 +12,8 @@
 
     <style>
         input, textarea, select {
-            margin-bottom: 3%;
+            margin-bottom: 1em;
         }
-
 
         input:valid {
             border: 1px solid grey;
@@ -31,12 +30,17 @@
 <body>
 
     <form name="formulario1" action="server.php">
-        <!-- aqui en el for se pone el nombre -->
         <label for="nombre">Nombre</label>
-        <input type="text" name="nombre" required pattern="^([a-zA-Z\s]{5,100})$">
+        <input type="text" name="nombre" required pattern="^([a-zA-Z\s]{5,100})$" title="El nombre debe tener una longitud minima de 5 caracteres y maxima de 100. Introduce solo letras y espacios">
         <br>
         <label for="numero">Numero</label>
         <input type="number" name="numero" required maxlength="9" min="600000000" max="899999999">
+        <br>
+        <label for="texto2">Texto 2</label>
+        <input type="text" name="texto2" required minlength="2" maxlength="10">
+        <br>
+        <label for="email">Email</label>
+        <input type="email" name="email" required maxlength="100">
         <br>
         <label for="idiomas">Idiomas</label>
         <input type="checkbox" id="ingles" name="idiomas" value="Ingles">
@@ -54,9 +58,7 @@
             <option value="audi">Audi</option>
         </select>
         <br>
-        <textarea rows="4" cols="50" name="areaTexto" form="formulario1" required minlength="10">
-            Escribe aquí
-        </textarea>
+        <textarea rows="4" cols="50" name="areaTexto" form="formulario1" required>Escribe aquí</textarea>
         <br>
         <label for="fecha">Fecha:</label>
         <input type="date" id="fecha" name="fecha" required>
@@ -66,10 +68,29 @@
 
     <script>
 
+        let nombre = document.forms[0].elements['nombre'];
+        let numero = document.forms[0].elements['numero'];
+        let texto2 = document.forms[0].elements['texto2'];
+        let email = document.forms[0].elements['email'];
+        let fecha = document.forms[0].elements['fecha'];
+
         
+        nombre.oninvalid = function(event) { this.setCustomValidity('El nombre debe tener una longitud minima de 5 caracteres y maxima de 100. Introduce solo letras y espacios'); }
+        nombre.oninput = function(event) { this.setCustomValidity(''); }
+        
+        numero.oninvalid = function(event) { this.setCustomValidity('El numero debe ser >= 600000000 y <= 899999999'); }
+        numero.oninput = function(event) { this.setCustomValidity(''); }
+
+        texto2.oninvalid = function(event) { this.setCustomValidity('La longitud del texto debe ser minimo 2 y maximo 10'); }
+        texto2.oninput = function(event) { this.setCustomValidity(''); }
+ 
+        email.oninvalid = function(event) { this.setCustomValidity('El correo que has introducido no es válido. Ejemplo: manuel@ejemplo.com'); }
+        email.oninput = function(event) { this.setCustomValidity(''); }
+
+        fecha.oninvalid = function(event) { this.setCustomValidity('Debes elegir una fecha para continuar'); }
+        fecha.oninput = function(event) { this.setCustomValidity(''); }
 
     </script>
-
 
 </body>
 

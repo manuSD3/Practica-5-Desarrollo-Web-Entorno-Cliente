@@ -24,24 +24,24 @@
     <form novalidate onsubmit="return validar()" name="formulario1" action="server.php">
         
         <label for="nombre">Nombre</label>
-        <input type="text" name="nombre" id="nombre" required pattern="^([a-zA-Z\s]{5,100})$">
+        <input type="text" name="nombre" id="nombre" required pattern="^([a-zA-Z\s]{5,100})$" onblur="validaNombre()">
         <br>
         <label for="numero">Numero</label>
-        <input type="number" name="numero" id="telefono" required min="600000000" max="899999999">
+        <input type="number" name="numero" id="telefono" required min="600000000" max="899999999" onblur="validaNum()">
         <br>
         <label for="texto2">Texto 2</label>
-        <input type="text" name="texto2" id="texto2" required minlength="2" maxlength="10">
+        <input type="text" name="texto2" id="texto2" required minlength="2" maxlength="10" onblur="validaTexto2()">
         <br>
         <label for="email">Email</label>
-        <input type="email" name="email" required maxlength="100">
+        <input type="email" name="email" required maxlength="100" onblur="validaEmail()">
         <br>
         <div id="idiomas">
             <label for="idiomas">Idiomas</label>
-            <input type="checkbox" id="ingles" name="idiomas" value="Ingles">
+            <input type="checkbox" id="ingles" name="idiomas" value="Ingles" onblur="validaIdiomas()">
             <label for="ingles">Inglés</label>
-            <input type="checkbox" id="espanol" name="idiomas" value="espanol">
+            <input type="checkbox" id="espanol" name="idiomas" value="espanol" onblur="validaIdiomas()">
             <label for="espanol">Español</label>
-            <input type="checkbox" id="aleman" name="idiomas" value="aleman">
+            <input type="checkbox" id="aleman" name="idiomas" value="aleman" onblur="validaIdiomas()">
             <label for="aleman">Alemán</label>
         </div>
         <br>
@@ -53,117 +53,24 @@
             <option value="audi">Audi</option>
         </select>
         <br>
-        <textarea rows="4" cols="50" name="areaTexto" form="formulario1" id="areaTexto" required>Escribe aquí</textarea>
+        <textarea rows="4" cols="50" name="areaTexto" form="formulario1" id="areaTexto" required onblur="validaTextArea()">Escribe aquí (no se puede dejar vacío)</textarea>
         <br>
         <label for="fecha">Fecha:</label>
-        <input type="date" id="fecha" name="fecha" required>
+        <input type="date" id="fecha" name="fecha" required onblur="validaFecha()">
         <br><br>
         <input class="boton" type="button" onclick="validarAntes()" value="Validar antes de enviar" />
         <input type="submit" value="Enviar">
     </form>
 
     <script>
+
         function validar() {
             let enviar = false;
 
-            let validaNombre = false;
-            let validaNum = false;
-            let validaTexto2 = false;
-            let validaEmail = false;
-            let validaIdiomas = false;
-            let validaTextArea = false;
-            let validaFecha = false;
-
-            let nombre = document.forms[0].elements[0];
-            let numero = document.forms[0].elements[1];
-            let texto2 = document.forms[0].elements[2];
-            let email = document.forms[0].elements[3];
-            let idiomas = document.forms[0].idiomas;
-            
-            let areaTexto = document.getElementById('areaTexto');
-            let fecha = document.forms[0].elements[8];
-
-            //validar texto
-            if (!nombre.value.match(/^([a-zA-Z\s]{5,100})$/)) {
-                nombre.style.border="2px solid red";
-            } else {
-                nombre.style.border="1px solid grey";
-                validaNombre=true;
-            }
-
-            //validar numero
-            if (numero.value < 600000000 || numero.value > 899999999) {
-                numero.style.border="2px solid red";
-            } else {
-                numero.style.border="1px solid grey";
-                validaNum=true;
-            }
-
-            //validar texto 2
-            if (texto2.value.length < 2 || texto2.value.length > 10) {
-                texto2.style.border="2px solid red";
-            } else {
-                texto2.style.border="1px solid grey";
-                validaTexto2=true;
-            }
-
-            //validar email
-            const patron = /^([a-zA-Z0-9\-_][a-zA-Z0-9\-_\.]{0,252}[a-zA-Z0-9\-_]@[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?)$/gm;
-            const caracPermitidos = /^([a-zA-Z0-9\-_\.@]+)$/gm;
-            
-            if (email.value === "") {
-
-                email.style.border="2px solid red";
-            
-            } else if (!caracPermitidos.test(String(email.value))) {
-
-                email.style.border="2px solid red";
-
-            } else if (!patron.test(String(email.value))){
-
-                email.style.border="2px solid red";
-                
-            } else {
-                email.style.border="1px solid grey";
-                validaEmail=true;
-            }
-
-            //validar checkbox
-            if (!idiomas[0].checked && !idiomas[1].checked && !idiomas[2].checked){
-                document.getElementById('idiomas').style.border="2px solid red";
-            } else {
-                document.getElementById('idiomas').style.border="none";
-                validaIdiomas=true;
-            }
-
-
-            //validar textArea
-            if (areaTexto.value === "") {
-
-                areaTexto.style.border="2px solid red";
-
-            } else if (areaTexto.value.length > 250) {
-                
-                areaTexto.style.border="2px solid red";
-
-            } else {
-                areaTexto.style.border="1px solid grey";
-                validaTextArea=true;
-            }          
-            
-
-            //validarFecha
-            if (fecha.value == "") {
-                fecha.style.border="2px solid red";
-            } else {
-                fecha.style.border="1px solid grey";
-                validaFecha=true;
-            }
-
-            if ((validaNombre && validaNum && validaIdiomas && validaTextArea && validaFecha && validaTexto2 && validaEmail)) {
+            if ((validaNombre() && validaNum() && validaIdiomas() && validaTextArea() && validaFecha() && validaTexto2() && validaEmail())) {
                 enviar = true;
             }
-
+            
             return enviar;
         }
         
@@ -173,8 +80,124 @@
             }
             return false;
         }
+        
+        //validar texto
+        function validaNombre() {
+            let validaNombre = false;
+            let nombre = document.forms[0].elements[0];
 
-    </script>
+            if (!nombre.value.match(/^([a-zA-Z\s]{5,100})$/)) {
+                nombre.style.border="2px solid red";
+            } else {
+                nombre.style.border="1px solid grey";
+                validaNombre=true;
+            }
+            return validaNombre;
+        }
+        
+        //validar numero
+        function validaNum() {
+            let validaNum = false;
+            let numero = document.forms[0].elements[1];
+
+            if (numero.value < 600000000 || numero.value > 899999999) {
+                numero.style.border="2px solid red";
+            } else {
+                numero.style.border="1px solid grey";
+                validaNum=true;
+            }
+            return validaNum;
+        }
+
+        //validar texto 2
+        function validaTexto2() {
+            let validaTexto2 = false;
+            let texto2 = document.forms[0].elements[2];
+            if (texto2.value.length < 2 || texto2.value.length > 10) {
+                texto2.style.border="2px solid red";
+            } else {
+                texto2.style.border="1px solid grey";
+                validaTexto2=true;
+            }
+            return validaTexto2;
+        }
+        
+        //validar email
+        function validaEmail() {
+            let validaEmail = false;
+            let email = document.forms[0].elements[3];
+            const patron = /^([a-zA-Z0-9\-_][a-zA-Z0-9\-_\.]{0,252}[a-zA-Z0-9\-_]@[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?)$/gm;
+            const caracPermitidos = /^([a-zA-Z0-9\-_\.@]+)$/gm;
+            
+            if (email.value === "") {
+            
+                email.style.border="2px solid red";
+            
+            } else if (!caracPermitidos.test(String(email.value))) {
+            
+                email.style.border="2px solid red";
+            
+            } else if (!patron.test(String(email.value))){
+            
+                email.style.border="2px solid red";
+                
+            } else {
+                email.style.border="1px solid grey";
+                validaEmail=true;
+            }
+            return validaEmail;
+        }
+        
+        //validar checkbox
+        function validaIdiomas() {
+            let validaIdiomas = false;
+            let idiomas = document.forms[0].idiomas;
+            if (!idiomas[0].checked && !idiomas[1].checked && !idiomas[2].checked){
+                document.getElementById('idiomas').style.border="2px solid red";
+            } else {
+                document.getElementById('idiomas').style.border="none";
+                validaIdiomas=true;
+            }
+            return validaIdiomas;
+        }
+        
+        //validar textArea
+        function validaTextArea() {
+
+            let validaTextArea = false;
+            let areaTexto = document.getElementById('areaTexto');
+
+            if (areaTexto.value === "") {
+            
+                areaTexto.style.border="2px solid red";
+            
+            } else if (areaTexto.value.length > 250) {
+                
+                areaTexto.style.border="2px solid red";
+            
+            } else {
+                areaTexto.style.border="1px solid grey";
+                validaTextArea=true;
+            }
+            return validaTextArea;
+        }      
+        
+        
+        //validarFecha
+        function validaFecha() {
+            let validaFecha = false;
+            let fecha = document.forms[0].elements[8];
+
+            if (fecha.value == "") {
+                fecha.style.border="2px solid red";
+            } else {
+                fecha.style.border="1px solid grey";
+                validaFecha=true;
+            }
+            return validaFecha;
+        } 
+
+        </script>
 
 
 </body>
