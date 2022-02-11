@@ -11,7 +11,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <style>
-        
+        table {
+            border: 1px solid black;
+        }
     </style>
 
 </head>
@@ -19,43 +21,64 @@
 <body>
 
     <h1>Crear tabla</h1>
-    <button onclick='generarTabla()'>CREAR</button>
-    <p>Fila:</p>
-    <input type="number" />
-    <p>Columna:</p>
-    <input type="number" />
+    <p>Filas: <input type="number" id="nFilas"/></p>
+    <p>Columnas: <input type="number" id="nColumnas"/></p>
+    <button onclick="generarTabla()">CREAR</button>
+    
 
     <h1>Vaciar una celda:</h1>
-    <button>VACIAR</button>
     <p>Fila:</p>
-    <input type="number" />
+    <input type="number" id="vaciaFila" />
     <p>Columna:</p>
-    <input type="number" />
+    <input type="number" id="vaciaColumna" />
+    <button onclick="vaciarTabla()">VACIAR</button>
 
     <script>
 
-        $(document).ready(function() {
+        //$(document).ready(function() {
 
-            //crear la tabla
-            let tabla = document.createElement('table');
-            document.body.appendChild(tabla);
-
-
-
-
+            //////////////////// GUIA CREAR ELEMENTOS ///////////////
+            
             //crear el elemento
             let parrafo = document.createElement('p');
             //crear un nodo de texto
-            let texto = document.createTextNode('esto es un parrafo');
+            let texto = document.createTextNode('esto es un parrafo \n');
             //adjuntar el nodo de texto al elemento
             parrafo.appendChild(texto);
             //este paso es necesario, porque los elementos se han creado "sueltos", están en memoria. Ahora hay que adjuntarlos al body.
             document.body.appendChild(parrafo);
 
+            ////////////////////////////////////////////////////////
 
+            function generarTabla() {
+                //crear la tabla
+                let tabla = document.createElement('table');
 
-        });
+                for (let i = 0; i < document.getElementById('nFilas').value; i++) {
+                    let fila = document.createElement('tr');
+                    tabla.appendChild(fila);
+                    for (let j = 0; j < document.getElementById('nColumnas').value; j++) {
+                        let columna = document.createElement('td');
+                        let texto = document.createTextNode('fila '+i+', columna '+j);
+                        columna.appendChild(texto);
+                        fila.appendChild(columna);
+                    }
+                    tabla.appendChild(fila);
+                }
+                tabla.setAttribute('border','1px solid black');
+                document.body.appendChild(tabla);
+            }
 
+            function vaciarTabla() {
+                let fila = document.getElementById('vaciaFila').value;
+                let columna = document.getElementById('vaciaColumna').value;
+
+                
+                document.querySelector('table').childNodes[fila].childNodes[columna].innerHTML = '';
+
+            }
+
+        //});
 
     </script>
 

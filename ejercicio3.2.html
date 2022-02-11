@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <title>Formulario</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+        input, textarea, select {
+            margin-bottom: 3%;
+        }
+
+
+        input:valid {
+            border: 1px solid grey;
+        }
+
+        input:invalid {
+            border: 2px solid red;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <form name="formulario1" action="server.php">
+        <!-- aqui en el for se pone el nombre -->
+        <label for="nombre">Nombre</label>
+        <input type="text" name="nombre" required pattern="^([a-zA-Z\s]{5,100})$">
+        <br>
+        <label for="numero">Numero</label>
+        <input type="number" name="numero" required maxlength="9" min="600000000" max="899999999">
+        <br>
+        <label for="idiomas">Idiomas</label>
+        <input type="checkbox" id="ingles" name="idiomas" value="Ingles">
+        <label for="ingles">Inglés</label>
+        <input type="checkbox" id="espanol" name="idiomas" value="espanol">
+        <label for="espanol">Español</label>
+        <input type="checkbox" id="aleman" name="idiomas" value="aleman">
+        <label for="aleman">Alemán</label>
+        <br>
+        <label for="coches">Elige uno:</label>
+        <select name="coches" id="coches">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="opel">Opel</option>
+            <option value="audi">Audi</option>
+        </select>
+        <br>
+        <textarea rows="4" cols="50" name="areaTexto" form="formulario1" required minlength="10">
+            Escribe aquí
+        </textarea>
+        <br>
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" name="fecha" required>
+        <br><br>
+        <input type="submit" value="Enviar">
+    </form>
+
+    <script>
+
+        
+
+    </script>
+
+
+</body>
+
+</html>

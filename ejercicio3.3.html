@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <title>Formulario</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+        input, textarea, select {
+            margin-bottom: 3%;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <form novalidate onsubmit="return validar()" name="formulario1" action="server.php">
+        <!-- aqui en el for se pone el nombre -->
+        <label for="nombre">Nombre</label>
+        <input type="text" name="nombre" id="nombre" required pattern="^([a-zA-Z\s]{5,100})$">
+        <br>
+        <label for="numero">Numero</label>
+        <input type="number" name="numero" id="telefono" required maxlength="9" min="600000000" max="899999999">
+        <br>
+        <label for="idiomas">Idiomas</label>
+        <input type="checkbox" id="ingles" name="idiomas" value="Ingles">
+        <label for="ingles">Inglés</label>
+        <input type="checkbox" id="espanol" name="idiomas" value="espanol">
+        <label for="espanol">Español</label>
+        <input type="checkbox" id="aleman" name="idiomas" value="aleman">
+        <label for="aleman">Alemán</label>
+        <br>
+        <label for="coches">Elige uno:</label>
+        <select name="coches" id="coches">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="opel">Opel</option>
+            <option value="audi">Audi</option>
+        </select>
+        <br>
+        <textarea rows="4" cols="50" name="areaTexto" form="formulario1" id="areaTexto" required minlength="10">Escribe aquí</textarea>
+        <br>
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" name="fecha" required>
+        <br><br>
+        <button onclick="return validarAntes()">Validar antes</button>
+        <input type="submit" value="Enviar">
+    </form>
+
+    <script>
+        function validar() {
+            let enviar = false;
+
+            let validaTexto = false;
+            let validaNum = false;
+            let validaIdiomas = false;
+            let validaTextArea = false;
+            let validaFecha = false;
+
+            let nombre = document.forms[0].elements[0];
+            let numero = document.forms[0].elements[1];
+            let idiomas = document.forms[0].idiomas;
+            
+            let areaTexto = document.getElementById('areaTexto').value;
+            let fecha = document.forms[0].elements[6];
+
+            //validar texto
+            if (!nombre.value.match(/^([a-zA-Z\s]{5,100})$/)) {
+                nombre.style.border="2px solid red";
+            } else {
+                nombre.style.border="1px solid grey";
+                validaTexto=true;
+            }
+
+            //validar numero
+            if (numero.value.length < 9) {
+                numero.style.border="2px solid red";
+            } else {
+                numero.style.border="1px solid grey";
+                validaNum=true;
+            }
+
+            //validar checkbox
+            if (!idiomas[0].checked && !idiomas[1].checked && !idiomas[2].checked){
+                for (let i = 0; i < idiomas.length; i++) {
+                    idiomas[i].style.border="2px solid red";
+                }
+            } else {
+                for (let i = 0; i < idiomas.length; i++) {
+                    idiomas[i].style.border="1px solid grey";
+                }
+                validaIdiomas=true;
+            }
+
+            //validar textArea
+            let mensaje = document.getElementById("areaTexto");
+            if (mensaje.value == "") {
+                mensaje.style.border="2px solid red";
+
+            } else if (mensaje.value.length > 250) {
+                //mostrar error
+                mensaje.style.border="2px solid red";
+            } else {
+                mensaje.style.border="1px solid grey";
+                validaTextArea=true;
+            }
+
+            //validarFecha
+            if (fecha.value == "") {
+                fecha.style.border="2px solid red";
+            } else {
+                fecha.style.border="1px solid grey";
+                validaFecha=true;
+            }
+
+            if ((validaTexto && validaNum && validaIdiomas && validaTextArea && validaFecha)) {
+                enviar = true;
+            }
+
+            return enviar;
+        }
+        
+        function validarAntes() {
+            validar();
+            return false;
+        }
+
+    </script>
+
+
+</body>
+
+</html>

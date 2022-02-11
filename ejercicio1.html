@@ -2,7 +2,7 @@
 <html lang='en'>
 
 <head>
-    <title>XHTML 5.2 blank page</title>
+    <title>Ejercicio 1</title>
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -54,7 +54,7 @@
 
     <div>
         <div class="pane">
-            <button class="remove-button">[x]</button>
+            <button class="remove-button" onclick="eliminarPadre()">[x]</button>
             <!-- <button class="remove-button" onclick="$('.pane').eq(0).hide()">[x]</button> -->
             <h3>Horse</h3>
             <p>The horse is one of two extant subspecies of Equus ferus. It is an odd-toed ungulate mammal belonging to
@@ -84,30 +84,66 @@
 
     <script>
 
-        $(document).ready(function () {
+      /*   $(document).ready(function () {
             
         });
+ */
+//////////////////////////////////// SOLUCION /////////////////////////////   
+        //seleccionar todos los panes
+        let panes = document.querySelectorAll('.pane');
 
-   
+        for (let i = 0; i < panes.length; i++) {
+            const pane = panes[i];
+            // button debe convertirse en el primer child de pane
+            //pane.firstChild.onclick = () => pane.remove();
 
-        event.target.remove();
+            pane.addEventListener('click', eliminarElementoPadre);
+
+            
+        }
+
+        //document.getElementsByClassName('.remove-button').addEventListener('click',manejador);
+        function eliminarElementoPadre(evento) {
+            
+            evento.currentTarget.remove();
+
+        }
+/////////////////////////////////////////////////////////////////////////
+
+
+        function eliminarPadre() {
+            //elemento en el que se ha pinchado
+            //event.target.remove();
+
+            //elemento superior al que se ha pinchado
+            //event.currentTarget.remove();
+
+            
+            var elem = document.getElementsByClassName('remove-button');
+            elem[0].parentNode.removeChild(elem[0]);
+            return false;
+    
+
+        }
+
+        //event.target.remove();
 
         function ClickHandler() {
-            alert('DIV - target: ' + event.target.tagName + 'currentTarget: ' + event.currentTarget.tagName + '\n' + event.eventPhase);
+            alert('DIV - target: ' + event.target.tagName + '\n' + 'currentTarget: ' + event.currentTarget.tagName + '\n' + event.eventPhase);
             //alert('tipo: ' + e.type);
         }
         function ClickHandler2() {
-            alert('p - target: ' + event.target.tagName + 'currentTarget: ' + event.currentTarget.tagName + '\n' + event.eventPhase);
+            alert('p - target: ' + event.target.tagName + '\n' + 'currentTarget: ' + event.currentTarget.tagName + '\n' + event.eventPhase);
             event.StopPropagation();
             //alert('segundo22222');
         }
         function ClickHandler3() {
-            alert('p - target: ' + event.target.tagName + 'currentTarget: ' + event.currentTarget.tagName + '\n' + event.eventPhase);
+            alert('p - target: ' + event.target.tagName + '\n' + 'currentTarget: ' + event.currentTarget.tagName + '\n' + event.eventPhase);
 
         }
 
         //seleccionar todos los panes
-        let panes = document.querySelectorAll('.pane');
+/*         let panes = document.querySelectorAll('.pane');
 
         for (let i = 0; i < panes.length; i++) {
             const pane = panes[i];
@@ -116,15 +152,15 @@
 
             
         }
-
+ */
 
 //      https://bobbyhadz.com/blog/javascript-remove-element-from-dom-on-click
-        const box = document.getElementById('box');
+/*         const box = document.getElementById('box');
 
         box.addEventListener('click', function handleClick(event) {
         event.target.remove();
         });
-
+ */
 
 
     </script>
