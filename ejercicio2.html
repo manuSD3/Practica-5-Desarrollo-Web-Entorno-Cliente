@@ -34,24 +34,7 @@
     <button onclick="vaciarTabla()">VACIAR</button>
 
     <script>
-
-        //$(document).ready(function() {
-
-            //////////////////// GUIA CREAR ELEMENTOS ///////////////
-            
-            //crear el elemento
-            let parrafo = document.createElement('p');
-            //crear un nodo de texto
-            let texto = document.createTextNode('esto es un parrafo \n');
-            //adjuntar el nodo de texto al elemento
-            parrafo.appendChild(texto);
-            //este paso es necesario, porque los elementos se han creado "sueltos", están en memoria. Ahora hay que adjuntarlos al body.
-            document.body.appendChild(parrafo);
-
-            ////////////////////////////////////////////////////////
-
             function generarTabla() {
-                //crear la tabla
                 let tabla = document.createElement('table');
 
                 for (let i = 0; i < document.getElementById('nFilas').value; i++) {
@@ -73,12 +56,9 @@
                 let fila = document.getElementById('vaciaFila').value;
                 let columna = document.getElementById('vaciaColumna').value;
 
-                
                 document.querySelector('table').childNodes[fila].childNodes[columna].innerHTML = '';
 
             }
-
-        //});
 
     </script>
 
